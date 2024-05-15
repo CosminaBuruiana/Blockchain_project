@@ -69,7 +69,7 @@ contract Booking {
         clients[createdClients[0]].status[2] = "UNPAID";
     }
 
-     function initialize(address payable ownerContractParam) public {
+    function initialize(address payable ownerContractParam) public {
         require(address(ownerContract) == address(0), "Owner contract has already been initialized");
         ownerContract = Owner(ownerContractParam);
     }

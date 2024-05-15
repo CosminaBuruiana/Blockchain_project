@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers"
 import bookingABI from "../../artifacts/contracts/booking.sol/Booking.json"
+import './style/CreateHotel.css';
 
 function CreateHotel() {
     const navigate = useNavigate();
@@ -54,47 +55,58 @@ function CreateHotel() {
     }
 
   return (
-    <>
-    <p>Create hotel</p>
-    {
-        authenticated()
-        && (
-            <div className="center">
-              <h4>Create hotel</h4>
-         <form onSubmit={addHotel}>
-         <div className="inputbox">
-            <input type="text" required="required" id="location" />
-            <span>Location</span>
-          </div>
-          <div className="inputbox">
-            <input type="text" required="required" id="name" />
-            <span>Name</span>
-          </div>
-          <div className="inputbox">
-            <input type="text" required="required" id="rooms" />
-            <span>Rooms</span>
-          </div>
-          <div className="inputbox">
-            <input type="text" required="required" id="price" />
-            <span>Price</span>
-          </div>
+    <>	
+	<div className='wrapper-first'>
+    	<div className='wrapper'>
+		<h1>Create hotel</h1>
+		{
+			authenticated()
+			&& (
+				// <div className="center">
+				<form onSubmit={addHotel}>
+				
+					<div className="input-box">
+					<label htmlFor='password'><strong></strong></label>
+						<input type="text" required="required" id="location" placeholder='Enter location'/>
+						
+					</div>
+					
+					<div className="input-box">
+					<label htmlFor='password'><strong></strong></label>
+						<input type="text" required="required" id="name" placeholder='Enter name'/>
+						
+					</div>
+					
 
-          <div className="inputbox">
-            <input type="submit" value="Create"/>
-          </div>
-        </form>
-        </div>
-        )
-    }
-    
-    {
-      !authenticated()
-      && (
-      <div>
-        <p>You need to be authenticated to access this page!</p>
-      </div>
-      )
-    }
+					<div className="input-box">
+					<label htmlFor='password'><strong></strong></label>
+						<input type="text" required="required" id="rooms" placeholder='Enter number of rooms'/>
+						
+					</div>
+
+					<div className="input-box">
+					<label htmlFor='password'><strong></strong></label>
+						<input type="text" required="required" id="price" placeholder='Enter price' />
+					</div>
+
+					
+					<button className='btn' type="submit" value="Create"><strong>Create</strong></button>
+					
+				</form>
+			// </div>
+			)
+		}
+		
+		{
+		!authenticated()
+		&& (
+		<div>
+			<p>You need to be authenticated to access this page!</p>
+		</div>
+		)
+		}
+		</div>
+		</div>
     </>
   )
 }

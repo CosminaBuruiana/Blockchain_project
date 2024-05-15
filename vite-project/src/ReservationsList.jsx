@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import bookingABI from "../../artifacts/contracts/booking.sol/Booking.json"
+import './style/ReservationList.css';
+import Navbar from './Navbar';
 
 function ReservationsList() {
 
@@ -70,11 +72,22 @@ function ReservationsList() {
 
   return (
     <>
+    <Navbar/>
     <p>Reservations</p>
     {
         authenticated()
         && (
-            <table style={{ backgroundColor: 'yellow' }}>
+            <table className='table'>
+            <thead>
+              <th>Index</th>
+              <th>Hotel Id</th>
+              <th>location</th>
+              <th>Hotel Name</th>
+              <th>Number Of Rooms</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th></th>
+            </thead>
                <tbody>
                    {reservations.map((reservation) => (
                         <tr key={reservation.id}>
@@ -88,7 +101,7 @@ function ReservationsList() {
                           {
                             (reservation.status === "UNPAID") &&
                             <td>
-                              <button onClick={() => pay(reservation.id, reservation.totalCost)}>Pay</button>
+                              <button className='button' onClick={() => pay(reservation.id, reservation.totalCost)}>Pay</button>
                             </td>
                           }
                         </tr>

@@ -6,6 +6,8 @@ import bookingABI from "../../artifacts/contracts/booking.sol/Booking.json"
 import ownerABI from "../../artifacts/contracts/owner.sol/Owner.json"
 import CreateHotel from './CreateHotel';
 import HotelsList from './HotelsList';
+import Navbar from './Navbar.jsx';
+import './style/Login.css'
 
 function Login() {
   const navigate = useNavigate();
@@ -60,11 +62,17 @@ function Login() {
     }
 
   return (
-    <div>
-     Connected account : {metamaskAccount} 
-     <br></br>
-     <button onClick={connect}>Connect with MetaMask</button>
+    <>
+   
+    <div className='hero-container'>
+    <p>Connected account: {metamaskAccount}</p>
+    <div className='hero-btns'>
+    <button className="button" onClick={connect}>Connect with MetaMask</button>
     </div>
+    </div>
+    </>
+  
+
   )
 }
 

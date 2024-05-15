@@ -6,6 +6,8 @@ import ownerABI from "../../artifacts/contracts/owner.sol/Owner.json"
 import CreateHotel from './CreateHotel';
 import HotelsList from './HotelsList';
 import ReservationsList from './ReservationsList';
+import Navbar from './Navbar';
+import './style/Home.css'
 
 
 function Home() {
@@ -77,21 +79,26 @@ function Home() {
 
   return (
     <>
-    <p>HOME</p>
+   
     {
       authenticated()
       && (
-      <div>
+      
+      <div className='home'>
+        <Navbar/>
+        <div className='div_buttons'>
+        <button className='button-88' onClick={gotoCreateHotelPage}>Create hotel (only for owner!)</button>
+        <button className='button-88' onClick={gotoReservationsPage}>Reservations (only for clients!)</button>
+        <button className='button-88' onClick={ownerCashOut}>Cash out (only for owner!)</button>
+        <button className='button-88' onClick={getOwnerContractBalance}>Show owner contract balance (only for owner!)</button>
+        </div>
         <HotelsList />
-        <button onClick={gotoCreateHotelPage}>Create hotel (only for owner!)</button>
-        <button onClick={gotoReservationsPage}>Reservations (only for clients!)</button>
-        <button onClick={ownerCashOut}>Cash out (only for owner!)</button>
-        <button onClick={getOwnerContractBalance}>Show owner contract balance (only for owner!)</button>
         {
           isOwner && 
           <p>Owner contract balance: {ownerContractBalance.toString()} WEI</p>
         }
-        <p>{blockChainData && blockChainData.metamaskAccount}</p>
+        <p>Blockchain Data:</p>
+        <p> {blockChainData && blockChainData.metamaskAccount}</p>
         <p>{blockChainData && blockChainData.bookingContractAddress}</p>
         <p>{blockChainData && blockChainData.ownerContractAddress}</p> 
       </div>
