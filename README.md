@@ -40,7 +40,7 @@ $ # deploy to sepolia
 $ yarn run hardhat run scripts/deploy.js --network sepolia
 $
 $ # copy smart contracts artifactories in frontend and update contract addresses automatically
-$ yarn run hardhat run scripts/withdraw.js
+$ yarn run hardhat run scripts/update.configs.js
 ```
 
 ![alt text](image.png)
