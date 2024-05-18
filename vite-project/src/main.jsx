@@ -6,10 +6,13 @@ import Login from './Login.jsx';
 import './index.css'
 import CreateHotel from './CreateHotel.jsx';
 import ReservationsList from './ReservationsList.jsx';
+import Navbar from './Navbar.jsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
      <BrowserRouter>
+     
       <Routes>
           <Route path="/" element={<Login />} />
           <Route path="login" element={<Login />} />

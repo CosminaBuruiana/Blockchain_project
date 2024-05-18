@@ -1,0 +1,60 @@
+
+  .button-88 {
+  /* display: block;
+  margin: auto; */
+  /* align-items: center; */
+  /* justify-content: center; Center the content horizontally */
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 0.7em 1.4em 0.7em 1.1em;
+  margin-top: 50px;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(0deg, rgb(38, 60, 188) 0%, rgb(26, 35, 141) 100%);
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em #09002a98;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  padding: 20px 10px 10px 20px;
+  /* text-align: center; */
+}
+
+.button-88:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #313aea98;
+}
+
+.button-88:active {
+  box-shadow: 0 0.3em 1em -0.5em #3b4fe798;
+}
+
+.div_buttons {
+  display: block;
+  margin: auto;
+  align-items: center;
+  padding-left: 30px;
+
+}
+  
+/* Style for owner contract balance */
+p {
+  margin-left: 30px;
+  font-size: 18px; /* Adjust font size as needed */
+  margin-bottom: 10px; /* Add spacing between paragraphs */
+  margin-top: 10px;
+}
+
+/* Style specifically for owner contract balance paragraph */
+p:first-of-type {
+  font-weight: bold; /* Make text bold */
+  color: #ffffff; /* Set text color */
+}
+
+/* Style for other paragraphs */
+p:not(:first-of-type) {
+  color: #ffffff; /* Set text color */
+}

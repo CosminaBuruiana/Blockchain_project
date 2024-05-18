@@ -2,18 +2,23 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers"
-import ownerABI from "../../artifacts/contracts/owner.sol/Owner.json"
+import ownerABI from "../public/artifacts/Owner.json"
+import bookingABI from "../public/artifacts/Booking.json"
 import CreateHotel from './CreateHotel';
 import HotelsList from './HotelsList';
 import ReservationsList from './ReservationsList';
+import Navbar from './Navbar';
+import './style/Home.css'
 
 
 function Home() {
   const navigate = useNavigate();
   const [blockChainData, setBlockChainData] = useState()
   const [ownerContractBalance, setOwnerContractBalance] = useState(0)
+  const [OwnerAddress, setOwnerAddress] = useState("Show owner address")
   const [isOwner, setIsOwner] = useState(false)
   let ownerContract;
+  let bookingContract;
   
   useEffect(() => {
     if(sessionStorage.getItem('blockChainData')) {
@@ -31,6 +36,18 @@ function Home() {
     ownerContract = new ethers.Contract(
         ownerContractAddress,
         ownerContractABI,
+        signer
+    )
+}
+  const getBookingContract = (validBlockChainData) => {
+    const bookingContractAddress = validBlockChainData.bookingContractAddress
+    const bookingContractABI = bookingABI.abi;
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+
+    bookingContract = new ethers.Contract(
+        bookingContractAddress,
+        bookingContractABI,
         signer
     )
 }
@@ -71,27 +88,50 @@ function Home() {
       }
   }
 
+  const getOwnerAddress = async () => {
+    getBookingContract(blockChainData)
+
+    try {
+      const address = await bookingContract.getOwnerAddress()
+      setOwnerAddress(address);
+      console.log(address);
+      return address;
+    }
+    catch(err) {
+      console.log(err)
+      alert("Error getting owner adress!");
+    }
+
+  }
+
   const authenticated = () => {
     return (sessionStorage.getItem('blockChainData') != null && sessionStorage.getItem('blockChainData') != undefined)
   }
 
   return (
     <>
-    <p>HOME</p>
+   
     {
       authenticated()
       && (
-      <div>
+      
+      <div className='home'>
+        <Navbar/>
+        <div className='div_buttons'>
+        <button className='button-88' onClick={gotoCreateHotelPage}>Create hotel (only for owner!)</button>
+        <button className='button-88' onClick={gotoReservationsPage}>Reservations (only for clients!)</button>
+        <button className='button-88' onClick={ownerCashOut}>Cash out (only for owner!)</button>
+        <button className='button-88' onClick={getOwnerContractBalance}>Show owner contract balance (only for owner!)</button>
+        </div>
         <HotelsList />
-        <button onClick={gotoCreateHotelPage}>Create hotel (only for owner!)</button>
-        <button onClick={gotoReservationsPage}>Reservations (only for clients!)</button>
-        <button onClick={ownerCashOut}>Cash out (only for owner!)</button>
-        <button onClick={getOwnerContractBalance}>Show owner contract balance (only for owner!)</button>
         {
           isOwner && 
+
           <p>Owner contract balance: {ownerContractBalance.toString()} WEI</p>
         }
-        <p>{blockChainData && blockChainData.metamaskAccount}</p>
+        <button className='button-88' onClick={getOwnerAddress}>{OwnerAddress}</button>
+        <p>Blockchain Data:</p>
+        <p> {blockChainData && blockChainData.metamaskAccount}</p>
         <p>{blockChainData && blockChainData.bookingContractAddress}</p>
         <p>{blockChainData && blockChainData.ownerContractAddress}</p> 
       </div>

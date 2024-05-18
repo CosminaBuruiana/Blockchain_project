@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import bookingABI from "../../artifacts/contracts/booking.sol/Booking.json"
+import bookingABI from "../public/artifacts/Booking.json"
+import "./style/HotelList.css";
+
 
 function HotelsList() {
 
@@ -45,7 +47,10 @@ function HotelsList() {
       getBookingContract(blockChainData)
 
       try {
+        console.log(`Try make reservation for hodel id: ${hotel.id} rooms to reserve: ${roomsToReserve}`);
         await bookingContract.makeReservation(hotel.id, roomsToReserve);
+        console.log("Successfully made reservation!");
+        
         alert("Successfully made reservation!")
       }
       catch(err) {
@@ -56,8 +61,20 @@ function HotelsList() {
 
   return (
     <>
-    <table style={{ backgroundColor: 'yellow' }}>
-  <tbody>
+    <table className='table'>
+    <thead>
+        <tr>
+					<th>Index</th>
+          <th>Name</th>
+          <th>Location</th>
+					<th>Hotel name</th>
+          <th>Rooms available</th>
+					<th>Price</th>
+          <th>Set rooms to reserve</th>
+          <th>Reserve</th>
+				</tr>
+		</thead>
+    <tbody>
     {hotels.map((hotel) => (
       <tr key={hotel.id}>
         <td>{hotel.id}</td>
@@ -74,7 +91,7 @@ function HotelsList() {
           />
         </td>
         <td>
-          <button onClick={() => reserve(hotel)}>Reserve (only for clients!)</button>
+          <button className='button' onClick={() => reserve(hotel)}>Reserve (only for clients!)</button>
         </td>
       </tr>
     ))}

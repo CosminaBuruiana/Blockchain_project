@@ -2,19 +2,23 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers"
-import bookingABI from "../../artifacts/contracts/booking.sol/Booking.json"
-import ownerABI from "../../artifacts/contracts/owner.sol/Owner.json"
+
+import bookingABI from "../public/artifacts/Booking.json"
+import ownerABI from "../public/artifacts/Owner.json"
+import ArtifactsData from "../public/artifacts/deployed.json" 
 import CreateHotel from './CreateHotel';
 import HotelsList from './HotelsList';
+import Navbar from './Navbar.jsx';
+import './style/Login.css'
 
 function Login() {
   const navigate = useNavigate();
   const [metamaskAccount, setMetamaskAccount] = useState("Not connected");
 
-  const bookingContractAddress = "0xeC20266B328fCEF24D6Ac332f77c104febC68B78";
+  const bookingContractAddress = ArtifactsData.address_booking;
   const bookingContractABI = bookingABI.abi;
   
-  const ownerContractAddress = "0x17572385379bbDB44451b17Ae999e246a4D2e104";
+  const ownerContractAddress = ArtifactsData.address_owner;
   const ownerContractABI = ownerABI.abi;
 
   const provider = new ethers.providers.Web3Provider(ethereum);
@@ -60,11 +64,17 @@ function Login() {
     }
 
   return (
-    <div>
-     Connected account : {metamaskAccount} 
-     <br></br>
-     <button onClick={connect}>Connect with MetaMask</button>
+    <>
+   
+    <div className='hero-container'>
+    <p>Connected account: {metamaskAccount}</p>
+    <div className='hero-btns'>
+    <button className="button" onClick={connect}>Connect with MetaMask</button>
     </div>
+    </div>
+    </>
+  
+
   )
 }
 
